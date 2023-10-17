@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      TF_VAR_RDS_ADMIN: ${{ vars.TF_VAR_RDS_ADMIN }}
+      TF_VAR_rds_admin: ${{ vars.TF_VAR_RDS_ADMIN }}
       TF_VAR_RDS_ADMIN_PASSWORD: ${{ vars.TF_VAR_RDS_ADMIN_PASSWORD }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
