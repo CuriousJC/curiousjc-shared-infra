@@ -1,4 +1,10 @@
-variable "some_secret" {
+variable "rds_admin" {
   type        = string
-  description = "some secret we have"
+  description = "admin for rds instance"
+}
+
+variable "rds_admin_password" {
+  type        = string
+  description = "admin for rds instance"
+  sensitive = true
 }
