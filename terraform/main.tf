@@ -62,13 +62,13 @@ resource "aws_db_subnet_group" "xolsiiondb_subnet" {
 
 resource "aws_subnet" "xolsiion_net_subnet_a" {
   vpc_id            = aws_vpc.xolsiion_net_vpc.id
-  cidr_block        = "10.0.1.${count.index * 2}/24"
+  cidr_block        = "10.0.1.1/24"
   availability_zone = "us-east-1a" # Replace with the desired AZs
 }
 
 resource "aws_subnet" "xolsiion_net_subnet_b" {
   vpc_id            = aws_vpc.xolsiion_net_vpc.id
-  cidr_block        = "10.0.1.${count.index * 2}/24"
+  cidr_block        = "10.0.1.2/24"
   availability_zone = "us-east-1b" # Replace with the desired AZs
 }
 
