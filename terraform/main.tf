@@ -49,7 +49,10 @@ resource "aws_db_subnet_group" "xolsiiondb_subnet" {
   name        = "xolsiiondb-subnet-sg"
   description = "subnet group for our database"
 
-  subnet_ids = aws_subnet.xolsiion_net_subnet[*].id
+  subnet_ids = [
+    aws_subnet.xolsiion_net_subnet_a.id,
+    aws_subnet.xolsiion_net_subnet_b.id,
+  ]
 
   depends_on = [
     aws_iam_service_linked_role.rds,
@@ -57,11 +60,16 @@ resource "aws_db_subnet_group" "xolsiiondb_subnet" {
   ]
 }
 
-resource "aws_subnet" "xolsiion_net_subnet" {
-  count             = 1 # Use at least 2 subnets in different Availability Zones for multi-AZ deployment
+resource "aws_subnet" "xolsiion_net_subnet_a" {
   vpc_id            = aws_vpc.xolsiion_net_vpc.id
   cidr_block        = "10.0.1.${count.index * 2}/24"
   availability_zone = "us-east-1a" # Replace with the desired AZs
+}
+
+resource "aws_subnet" "xolsiion_net_subnet_b" {
+  vpc_id            = aws_vpc.xolsiion_net_vpc.id
+  cidr_block        = "10.0.1.${count.index * 2}/24"
+  availability_zone = "us-east-1b" # Replace with the desired AZs
 }
 
 resource "aws_vpc" "xolsiion_net_vpc" {
