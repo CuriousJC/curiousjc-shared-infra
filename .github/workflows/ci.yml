@@ -20,7 +20,7 @@ jobs:
 
     env:
       TF_VAR_rds_admin: ${{ vars.TF_VAR_RDS_ADMIN }}
-      TF_VAR_RDS_ADMIN_PASSWORD: ${{ vars.TF_VAR_RDS_ADMIN_PASSWORD }}
+      TF_VAR_rds_admin_password: ${{ vars.TF_VAR_RDS_ADMIN_PASSWORD }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
