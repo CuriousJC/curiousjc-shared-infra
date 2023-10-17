@@ -3,7 +3,7 @@ resource "aws_db_instance" "xolsiiondb" {
   allocated_storage    = 5     # 20 GB of storage in the Free Tier
   storage_type         = "gp2" # General Purpose SSD (SSD-backed storage)
   engine               = "postgres"
-  engine_version       = "12.5"
+  engine_version       = "15.4"
   instance_class       = "db.t2.micro" # Free Tier-eligible instance type
   db_name              = "xolsiiondb"
   username             = var.rds_admin
