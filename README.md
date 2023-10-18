@@ -1,2 +1,5 @@
-# xolsiion-shared-infra
+# curiousjc-shared-infra
+
 shared infrastructure for stacks
+
+#
