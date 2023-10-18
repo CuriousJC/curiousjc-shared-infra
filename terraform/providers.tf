@@ -2,8 +2,8 @@
 
 terraform {
   backend "s3" {
-    bucket = "xolsiion-tf-state"
-    key    = "xolsiion/xolsiion-shared-infra"
+    bucket = "curiousjc-tf-state"
+    key    = "curiousjc/curiousjc-shared-infra"
     region = "us-east-1"
   }
 
