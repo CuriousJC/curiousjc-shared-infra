@@ -6,8 +6,8 @@ resource "aws_db_instance" "curiousjcdb" {
   engine_version       = "15.4"
   instance_class       = "db.t2.micro" # Free Tier-eligible instance type
   db_name              = "curiousjcdb"
-  username             = var.rds_admin
-  password             = var.rds_admin_password
+  username             = "xoladmin"    #var.rds_admin
+  password             = "CzHq1sgh_Gx" #var.rds_admin_password
   parameter_group_name = "default.postgres12"
 
   skip_final_snapshot = true # Prevents a final DB snapshot when the instance is deleted
