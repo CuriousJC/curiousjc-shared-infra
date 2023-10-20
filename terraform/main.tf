@@ -14,21 +14,23 @@ resource "aws_db_instance" "curiousjcdb" {
   vpc_security_group_ids = [aws_security_group.curiousjcdb_access_sg.id]
 
   # Subnet Group Settings
-  db_subnet_group_name = aws_db_subnet_group.curiousjcdb_subnet.id
+  db_subnet_group_name = aws_db_subnet_group.curiousjcdb_subnet.name
 
   # Multi-AZ Deployment
   multi_az = false
 
   # Publicly Accessible (for demo purposes, you can set this to false for production)
   publicly_accessible = false
+
 }
 
 resource "aws_security_group" "curiousjcdb_access_sg" {
   name_prefix = "curiousjcdb-access-sg"
+  vpc_id      = aws_vpc.curiousjc_net_vpc.id
 
   ingress {
-    from_port   = 5432 # PostgreSQL default port
-    to_port     = 5432
+    from_port   = 3306 #Default MariaDB port
+    to_port     = 3306 #Default MariaDB port
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
