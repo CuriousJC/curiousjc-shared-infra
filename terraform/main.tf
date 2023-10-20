@@ -1,14 +1,12 @@
 
 resource "aws_db_instance" "curiousjcdb" {
-  allocated_storage    = 5     # 20 GB of storage in the Free Tier
-  storage_type         = "gp2" # General Purpose SSD (SSD-backed storage)
-  engine               = "postgres"
-  engine_version       = "15.4"
-  instance_class       = "db.t2.micro" # Free Tier-eligible instance type
-  db_name              = "curiousjcdb"
-  username             = "xoladmin"    #var.rds_admin
-  password             = "CzHq1sgh_Gx" #var.rds_admin_password
-  parameter_group_name = "default.postgres12"
+  allocated_storage = 5     # 20 GB of storage in the Free Tier
+  storage_type      = "gp2" # General Purpose SSD (SSD-backed storage)
+  engine            = "mariadb"
+  instance_class    = "db.t2.micro" # Free Tier-eligible instance type
+  db_name           = "curiousjcdb"
+  username          = "xoladmin"    #var.rds_admin
+  password          = "CzHq1sgh_Gx" #var.rds_admin_password
 
   skip_final_snapshot = true # Prevents a final DB snapshot when the instance is deleted
 
