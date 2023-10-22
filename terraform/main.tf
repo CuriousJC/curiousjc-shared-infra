@@ -1,27 +1,18 @@
 
 resource "aws_db_instance" "curiousjcdb" {
-  allocated_storage = 5     # 20 GB of storage in the Free Tier
-  storage_type      = "gp2" # General Purpose SSD (SSD-backed storage)
-  engine            = "mariadb"
-  instance_class    = "db.t2.micro" # Free Tier-eligible instance type
-  db_name           = "curiousjcdb"
-  username          = "xoladmin"    #var.rds_admin
-  password          = "CzHq1sgh_Gx" #var.rds_admin_password
-
-  skip_final_snapshot = true # Prevents a final DB snapshot when the instance is deleted
-
-  # Security Group Settings
+  allocated_storage      = 5     # 20 GB of storage in the Free Tier
+  storage_type           = "gp2" # General Purpose SSD (SSD-backed storage)
+  engine                 = "mariadb"
+  instance_class         = "db.t2.micro" # Free Tier-eligible instance type
+  db_name                = "curiousjcdb"
+  identifier             = "curiousjcdb_instance"
+  username               = "xoladmin"    #todo: var.rds_admin
+  password               = "CzHq1sgh_Gx" #todo: var.rds_admin_password
+  skip_final_snapshot    = true          # Prevents a final DB snapshot when the instance is deleted
   vpc_security_group_ids = [aws_security_group.curiousjcdb_access_sg.id]
-
-  # Subnet Group Settings
-  db_subnet_group_name = aws_db_subnet_group.curiousjcdb_subnet.name
-
-  # Multi-AZ Deployment
-  multi_az = false
-
-  # Publicly Accessible (for demo purposes, you can set this to false for production)
-  publicly_accessible = false
-
+  db_subnet_group_name   = aws_db_subnet_group.curiousjcdb_subnet.name
+  multi_az               = false
+  publicly_accessible    = false #no need
 }
 
 resource "aws_security_group" "curiousjcdb_access_sg" {
@@ -36,14 +27,14 @@ resource "aws_security_group" "curiousjcdb_access_sg" {
   }
 }
 
-resource "aws_iam_service_linked_role" "rds" {
-  aws_service_name = "rds.amazonaws.com"
-}
+#resource "aws_iam_service_linked_role" "rds" {
+#  aws_service_name = "rds.amazonaws.com"
+#}
 
-resource "time_sleep" "wait_10_seconds" {
-  depends_on      = [aws_iam_service_linked_role.rds]
-  create_duration = "10s"
-}
+#resource "time_sleep" "wait_10_seconds" {
+#  depends_on      = [aws_iam_service_linked_role.rds]
+#  create_duration = "10s"
+#}
 
 resource "aws_db_subnet_group" "curiousjcdb_subnet" {
   name        = "curiousjcdb-subnet-sg"
