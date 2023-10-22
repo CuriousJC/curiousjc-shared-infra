@@ -45,10 +45,10 @@ resource "aws_db_subnet_group" "curiousjcdb_subnet" {
     aws_subnet.curiousjc_net_subnet_b.id,
   ]
 
-  depends_on = [
-    aws_iam_service_linked_role.rds,
-    time_sleep.wait_10_seconds
-  ]
+  #depends_on = [
+  #  aws_iam_service_linked_role.rds,
+  #  time_sleep.wait_10_seconds
+  #]
 }
 
 resource "aws_subnet" "curiousjc_net_subnet_a" {
