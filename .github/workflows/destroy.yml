@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  apply:
+  destroy:
     runs-on: ubuntu-latest
     env:
       TF_VAR_rds_admin: ${{ vars.TF_VAR_RDS_ADMIN }}
