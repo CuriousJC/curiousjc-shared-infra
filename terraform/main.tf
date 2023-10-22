@@ -27,14 +27,14 @@ resource "aws_security_group" "curiousjcdb_access_sg" {
   }
 }
 
-#resource "aws_iam_service_linked_role" "rds" {
-#  aws_service_name = "rds.amazonaws.com"
-#}
+resource "aws_iam_service_linked_role" "rds" {
+  aws_service_name = "rds.amazonaws.com"
+}
 
-#resource "time_sleep" "wait_10_seconds" {
-#  depends_on      = [aws_iam_service_linked_role.rds]
-#  create_duration = "10s"
-#}
+resource "time_sleep" "wait_10_seconds" {
+  depends_on      = [aws_iam_service_linked_role.rds]
+  create_duration = "10s"
+}
 
 resource "aws_db_subnet_group" "curiousjcdb_subnet" {
   name        = "curiousjcdb-subnet-sg"
@@ -45,10 +45,10 @@ resource "aws_db_subnet_group" "curiousjcdb_subnet" {
     aws_subnet.curiousjc_net_subnet_b.id,
   ]
 
-  #depends_on = [
-  #  aws_iam_service_linked_role.rds,
-  #  time_sleep.wait_10_seconds
-  #]
+  depends_on = [
+    aws_iam_service_linked_role.rds,
+    time_sleep.wait_10_seconds
+  ]
 }
 
 resource "aws_subnet" "curiousjc_net_subnet_a" {
