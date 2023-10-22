@@ -5,7 +5,7 @@ resource "aws_db_instance" "curiousjcdb" {
   engine                 = "mariadb"
   instance_class         = "db.t2.micro" # Free Tier-eligible instance type
   db_name                = "curiousjcdb"
-  identifier             = "curiousjcdb_instance"
+  identifier             = "curiousjcdb-instance"
   username               = "xoladmin"    #todo: var.rds_admin
   password               = "CzHq1sgh_Gx" #todo: var.rds_admin_password
   skip_final_snapshot    = true          # Prevents a final DB snapshot when the instance is deleted
