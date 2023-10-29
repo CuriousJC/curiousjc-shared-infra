@@ -23,7 +23,7 @@ resource "aws_security_group" "curiousjcdb_access_sg" {
     from_port = 3306 #Default MariaDB port
     to_port   = 3306 #Default MariaDB port
     protocol  = "tcp"
-    #cidr_blocks = ["0.0.0.0/0"] #accepting all traffic from everywhere.  scary
+    #cidr_blocks = ["0.0.0.0/0"] #accepting all traffic from everywhere.  scary.
     cidr_blocks = ["96.33.90.111/32"]
   }
 }
