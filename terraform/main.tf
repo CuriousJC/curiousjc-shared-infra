@@ -20,10 +20,11 @@ resource "aws_security_group" "curiousjcdb_access_sg" {
   vpc_id      = aws_vpc.curiousjc_net_vpc.id
 
   ingress {
-    from_port   = 3306 #Default MariaDB port
-    to_port     = 3306 #Default MariaDB port
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    from_port = 3306 #Default MariaDB port
+    to_port   = 3306 #Default MariaDB port
+    protocol  = "tcp"
+    #cidr_blocks = ["0.0.0.0/0"] #accepting all traffic from everywhere.  scary
+    cidr_blocks = ["96.33.90.111/32"]
   }
 }
 
@@ -41,15 +42,19 @@ resource "aws_db_subnet_group" "curiousjcdb_subnet" {
 resource "aws_subnet" "curiousjc_net_subnet_a" {
   vpc_id            = aws_vpc.curiousjc_net_vpc.id
   cidr_block        = "10.0.0.0/24"
-  availability_zone = "us-east-1a" # Replace with the desired AZs
+  availability_zone = "us-east-1a"
 }
 
 resource "aws_subnet" "curiousjc_net_subnet_b" {
   vpc_id            = aws_vpc.curiousjc_net_vpc.id
   cidr_block        = "10.0.1.0/24"
-  availability_zone = "us-east-1b" # Replace with the desired AZs
+  availability_zone = "us-east-1b"
 }
 
 resource "aws_vpc" "curiousjc_net_vpc" {
-  cidr_block = "10.0.0.0/16" # Replace with your desired VPC CIDR block
+  cidr_block = "10.0.0.0/16"
+}
+
+resource "aws_internet_gateway" "curiousjc_net_igw" {
+  vpc_id = aws_vpc.curiousjc_net_vpc.id
 }
