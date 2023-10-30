@@ -12,7 +12,7 @@ resource "aws_db_instance" "curiousjcdb" {
   vpc_security_group_ids = [aws_security_group.curiousjcdb_access_sg.id]
   db_subnet_group_name   = aws_db_subnet_group.curiousjcdb_subnet.name
   multi_az               = false
-  publicly_accessible    = true
+  publicly_accessible    = false
 }
 
 resource "aws_security_group" "curiousjcdb_access_sg" {
@@ -52,7 +52,9 @@ resource "aws_subnet" "curiousjc_net_subnet_b" {
 }
 
 resource "aws_vpc" "curiousjc_net_vpc" {
-  cidr_block = "10.0.0.0/16"
+  cidr_block           = "10.0.0.0/16"
+  enable_dns_support   = true
+  enable_dns_hostnames = true
 }
 
 resource "aws_internet_gateway" "curiousjc_net_igw" {
