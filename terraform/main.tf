@@ -12,7 +12,7 @@ resource "aws_db_instance" "curiousjcdb" {
   vpc_security_group_ids = [aws_security_group.curiousjcdb_access_sg.id]
   db_subnet_group_name   = aws_db_subnet_group.curiousjcdb_subnet.name
   multi_az               = false
-  publicly_accessible    = false
+  publicly_accessible    = true
 }
 
 resource "aws_security_group" "curiousjcdb_access_sg" {
