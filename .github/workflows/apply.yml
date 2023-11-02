@@ -33,3 +33,14 @@ jobs:
       - name: Terraform Apply
         run: terraform apply -auto-approve
         working-directory: terraform
+
+      - name: Capture RDS Endpoint
+        id: rds_endpoint
+        run: |
+          endpoint=$(terraform output -json rds_endpoint)
+          echo "::set-output name=rds_endpoint::$endpoint"
+        working-directory: terraform
+
+      - name: Echo RDS Endpoint
+        run: echo "${{ steps.rds_endpoint.outputs.rds_endpoint }}"
+        working-directory: terraform
