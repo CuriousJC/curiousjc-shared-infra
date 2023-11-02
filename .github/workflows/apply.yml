@@ -38,7 +38,7 @@ jobs:
         id: curiousjcdb_endpoint
         run: |
           endpoint=$(terraform output -json curiousjcdb_endpoint)
-          echo "::set-output name=curiousjcdb_endpoint::$endpoint"
+          echo "curiousjcdb_endpoint=$endpoint" >> $GITHUB_OUTPUT
         working-directory: terraform
 
       - name: Echo RDS Endpoint
