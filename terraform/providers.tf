@@ -22,6 +22,7 @@ provider "aws" {
   default_tags {
     tags = {
       Environment = "curiousjc-shared-infra"
+      terraform   = "true"
     }
   }
 }

@@ -4,20 +4,34 @@ resource "aws_vpc" "curiousjc_net_vpc" {
   enable_dns_hostnames = true
 
   tags = {
-    terraform = "true"
-    Name      = "curiousjc_net_vpc"
+    Name = "curiousjc_net_vpc"
   }
 }
 
 resource "aws_internet_gateway" "curiousjc_net_igw" {
   vpc_id = aws_vpc.curiousjc_net_vpc.id
   tags = {
-    terraform = "true"
-    Name      = "curiousjc_net_igw"
+    Name = "curiousjc_net_igw"
   }
 }
 
-#todo: possibly createa  route table so traffic can get out of the VPC?
+resource "aws_route_table" "curiousjc_net_route_table" {
+  vpc_id = aws_vpc.curiousjc_net_vpc.id
+
+  # since this is exactly the route AWS will create, the route will be adopted
+  route {
+    cidr_block = "10.0.0.0/16"
+    gateway_id = "local"
+  }
+
+  route { #so traffic can escape the VPC for public connections
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.curiousjc_net_igw.id
+  }
+  tags = {
+    Name = "curiousjc_net_route_table"
+  }
+}
 
 resource "aws_subnet" "curiousjc_net_subnet_a" {
   vpc_id            = aws_vpc.curiousjc_net_vpc.id
