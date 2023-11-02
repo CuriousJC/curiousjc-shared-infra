@@ -105,14 +105,6 @@ output "curiousjcdb_endpoint" {
   value = aws_db_instance.curiousjcdb.address
 }
 
-output "rds_admin" {
-  value = var.rds_admin
-}
-
-output "rds_admin_password" {
-  value = var.rds_admin_password
-  #sensitive = true
-}
 
 
 
