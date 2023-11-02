@@ -31,6 +31,10 @@ resource "aws_subnet" "curiousjc_net_subnet_a" {
   vpc_id            = aws_vpc.curiousjc_net_vpc.id
   cidr_block        = "10.0.0.0/24"
   availability_zone = "us-east-1a"
+
+  tags = {
+    Name = "curiousjc_net_subnet_a"
+  }
 }
 
 resource "aws_route_table_association" "subnet_a_route" {
@@ -42,6 +46,10 @@ resource "aws_subnet" "curiousjc_net_subnet_b" {
   vpc_id            = aws_vpc.curiousjc_net_vpc.id
   cidr_block        = "10.0.1.0/24"
   availability_zone = "us-east-1b"
+
+  tags = {
+    Name = "curiousjc_net_subnet_b"
+  }
 }
 
 resource "aws_route_table_association" "subnet_b_route" {
@@ -69,6 +77,10 @@ resource "aws_security_group" "curiousjcdb_access_sg" {
     protocol  = "tcp"
     #cidr_blocks = ["0.0.0.0/0"] #accepting all traffic from everywhere.  scary.
     cidr_blocks = ["96.33.90.111/32"]
+  }
+
+  tags = {
+    Name = "curiousjcdb_access_sg"
   }
 }
 
