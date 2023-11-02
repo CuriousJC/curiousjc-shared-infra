@@ -33,10 +33,20 @@ resource "aws_subnet" "curiousjc_net_subnet_a" {
   availability_zone = "us-east-1a"
 }
 
+resource "aws_route_table_association" "subnet_a_route" {
+  subnet_id      = aws_subnet.curiousjc_net_subnet_a.id
+  route_table_id = aws_route_table.curiousjc_net_route_table.id
+}
+
 resource "aws_subnet" "curiousjc_net_subnet_b" {
   vpc_id            = aws_vpc.curiousjc_net_vpc.id
   cidr_block        = "10.0.1.0/24"
   availability_zone = "us-east-1b"
+}
+
+resource "aws_route_table_association" "subnet_b_route" {
+  subnet_id      = aws_subnet.curiousjc_net_subnet_b.id
+  route_table_id = aws_route_table.curiousjc_net_route_table.id
 }
 
 resource "aws_db_subnet_group" "curiousjcdb_subnet" {
