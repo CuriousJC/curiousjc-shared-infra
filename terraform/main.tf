@@ -1,3 +1,60 @@
+resource "aws_vpc" "curiousjc_net_vpc" {
+  cidr_block           = "10.0.0.0/16"
+  enable_dns_support   = true
+  enable_dns_hostnames = true
+
+  tags = {
+    terraform = "true"
+    Name      = "curiousjc_net_vpc"
+  }
+}
+
+resource "aws_internet_gateway" "curiousjc_net_igw" {
+  vpc_id = aws_vpc.curiousjc_net_vpc.id
+  tags = {
+    terraform = "true"
+    Name      = "curiousjc_net_igw"
+  }
+}
+
+#todo: possibly createa  route table so traffic can get out of the VPC?
+
+resource "aws_subnet" "curiousjc_net_subnet_a" {
+  vpc_id            = aws_vpc.curiousjc_net_vpc.id
+  cidr_block        = "10.0.0.0/24"
+  availability_zone = "us-east-1a"
+}
+
+resource "aws_subnet" "curiousjc_net_subnet_b" {
+  vpc_id            = aws_vpc.curiousjc_net_vpc.id
+  cidr_block        = "10.0.1.0/24"
+  availability_zone = "us-east-1b"
+}
+
+resource "aws_db_subnet_group" "curiousjcdb_subnet" {
+  name        = "curiousjcdb-subnet-sg"
+  description = "subnet group for our database"
+
+  subnet_ids = [
+    aws_subnet.curiousjc_net_subnet_a.id,
+    aws_subnet.curiousjc_net_subnet_b.id,
+  ]
+
+}
+
+resource "aws_security_group" "curiousjcdb_access_sg" {
+  name_prefix = "curiousjcdb-access-sg"
+  vpc_id      = aws_vpc.curiousjc_net_vpc.id
+
+  ingress {
+    from_port = 3306 #Default MariaDB port
+    to_port   = 3306 #Default MariaDB port
+    protocol  = "tcp"
+    #cidr_blocks = ["0.0.0.0/0"] #accepting all traffic from everywhere.  scary.
+    cidr_blocks = ["96.33.90.111/32"]
+  }
+}
+
 
 resource "aws_db_instance" "curiousjcdb" {
   allocated_storage      = 5     # 20 GB of storage in the Free Tier
@@ -15,48 +72,12 @@ resource "aws_db_instance" "curiousjcdb" {
   publicly_accessible    = true
 }
 
-resource "aws_security_group" "curiousjcdb_access_sg" {
-  name_prefix = "curiousjcdb-access-sg"
-  vpc_id      = aws_vpc.curiousjc_net_vpc.id
 
-  ingress {
-    from_port = 3306 #Default MariaDB port
-    to_port   = 3306 #Default MariaDB port
-    protocol  = "tcp"
-    #cidr_blocks = ["0.0.0.0/0"] #accepting all traffic from everywhere.  scary.
-    cidr_blocks = ["96.33.90.111/32"]
-  }
-}
 
-resource "aws_db_subnet_group" "curiousjcdb_subnet" {
-  name        = "curiousjcdb-subnet-sg"
-  description = "subnet group for our database"
 
-  subnet_ids = [
-    aws_subnet.curiousjc_net_subnet_a.id,
-    aws_subnet.curiousjc_net_subnet_b.id,
-  ]
 
-}
 
-resource "aws_subnet" "curiousjc_net_subnet_a" {
-  vpc_id            = aws_vpc.curiousjc_net_vpc.id
-  cidr_block        = "10.0.0.0/24"
-  availability_zone = "us-east-1a"
-}
 
-resource "aws_subnet" "curiousjc_net_subnet_b" {
-  vpc_id            = aws_vpc.curiousjc_net_vpc.id
-  cidr_block        = "10.0.1.0/24"
-  availability_zone = "us-east-1b"
-}
 
-resource "aws_vpc" "curiousjc_net_vpc" {
-  cidr_block           = "10.0.0.0/16"
-  enable_dns_support   = true
-  enable_dns_hostnames = true
-}
 
-resource "aws_internet_gateway" "curiousjc_net_igw" {
-  vpc_id = aws_vpc.curiousjc_net_vpc.id
-}
+
