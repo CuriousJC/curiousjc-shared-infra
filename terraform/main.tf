@@ -57,7 +57,6 @@ resource "aws_db_subnet_group" "curiousjcdb_subnet" {
     aws_subnet.curiousjc_net_subnet_a.id,
     aws_subnet.curiousjc_net_subnet_b.id,
   ]
-
 }
 
 resource "aws_security_group" "curiousjcdb_access_sg" {
@@ -89,6 +88,11 @@ resource "aws_db_instance" "curiousjcdb" {
   multi_az               = false
   publicly_accessible    = true
 }
+
+output "curiousjcdb_endpoint" {
+  value = aws_db_instance.curiousjcdb.endpoint
+}
+
 
 
 
