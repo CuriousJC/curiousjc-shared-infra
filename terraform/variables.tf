@@ -6,5 +6,5 @@ variable "rds_admin" {
 variable "rds_admin_password" {
   type        = string
   description = "admin for rds instance"
-  sensitive = true
+  #sensitive = true
 }

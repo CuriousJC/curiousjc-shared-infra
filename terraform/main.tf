@@ -110,8 +110,8 @@ output "rds_admin" {
 }
 
 output "rds_admin_password" {
-  value     = var.rds_admin_password
-  sensitive = true
+  value = var.rds_admin_password
+  #sensitive = true
 }
 
 
