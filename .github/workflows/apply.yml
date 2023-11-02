@@ -35,12 +35,12 @@ jobs:
         working-directory: terraform
 
       - name: Capture RDS Endpoint
-        id: rds_endpoint
+        id: curiousjcdb_endpoint
         run: |
-          endpoint=$(terraform output -json rds_endpoint)
-          echo "::set-output name=rds_endpoint::$endpoint"
+          endpoint=$(terraform output -json curiousjcdb_endpoint)
+          echo "::set-output name=curiousjcdb_endpoint::$endpoint"
         working-directory: terraform
 
       - name: Echo RDS Endpoint
-        run: echo "${{ steps.rds_endpoint.outputs.rds_endpoint }}"
+        run: echo "${{ steps.curiousjcdb_endpoint.outputs.curiousjcdb_endpoint }}"
         working-directory: terraform
