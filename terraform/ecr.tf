@@ -3,7 +3,7 @@ resource "aws_ecr_repository" "curiousjc_ecr_repository" {
   name = "curiousjc-container-registry"
 }
 
-resource "aws_ecr_lifecycle_policy" "curiousjc_ecr_repository_untagged_policy" {
+resource "aws_ecr_lifecycle_policy" "curiousjc_ecr_repository_policy" {
   repository = aws_ecr_repository.curiousjc_ecr_repository.name
 
   policy = <<EOF
@@ -21,18 +21,7 @@ resource "aws_ecr_lifecycle_policy" "curiousjc_ecr_repository_untagged_policy" {
             "action": {
                 "type": "expire"
             }
-        }
-    ]
-}
-EOF
-}
-
-resource "aws_ecr_lifecycle_policy" "curiousjc_ecr_repository_tagged_policy" {
-  repository = aws_ecr_repository.curiousjc_ecr_repository.name
-
-  policy = <<EOF
-{
-    "rules": [
+        },
         {
             "rulePriority": 2,
             "description": "Keep last 10 images",
@@ -50,6 +39,7 @@ resource "aws_ecr_lifecycle_policy" "curiousjc_ecr_repository_tagged_policy" {
 }
 EOF
 }
+
 
 # Output the ECR repository URL
 output "ecr_repository_url" {
