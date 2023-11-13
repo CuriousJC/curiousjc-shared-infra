@@ -34,7 +34,7 @@ resource "aws_ecr_lifecycle_policy" "curiousjc_ecr_repository_tagged_policy" {
 {
     "rules": [
         {
-            "rulePriority": 1,
+            "rulePriority": 2,
             "description": "Keep last 10 images",
             "selection": {
                 "tagStatus": "tagged",
