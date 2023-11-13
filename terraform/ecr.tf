@@ -1,6 +1,6 @@
 # Create an Amazon ECR repository
 resource "aws_ecr_repository" "curiousjc_ecr_repository" {
-  name = "curiousjc-container-registry"
+  name = "curiousjc-container-images"
 }
 
 resource "aws_ecr_lifecycle_policy" "curiousjc_ecr_repository_untagged_policy" {
