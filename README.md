@@ -1,5 +1,4 @@
 # curiousjc-shared-infra
 
-shared infrastructure for stacks
+Shared infrastructure for solutions.  Pure terraform repository for creating any infrastructure shared amongst my other solutions.
 
-#
